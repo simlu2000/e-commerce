@@ -10,6 +10,7 @@ import { Grid2 } from '@mui/material';
 /*components*/
 import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
+import Filters from './Filters';
 /*other*/
 import allproducts from '../utils/products';
 
@@ -106,7 +107,8 @@ export default function ProductsPage(props) {
           padding: '0',
         }}>
           <SearchBar onSearch={handleSearch} />
-          <Container maxWidth="lg">
+          <Filters/>
+          <Container maxWidth="lg" sx={{marginTop:"5%"}}>
             <Grid2 container spacing={7}>
               {searchedProduct ?
                 filteredProducts.map((product) => (
