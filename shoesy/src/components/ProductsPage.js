@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { extendTheme, styled } from '@mui/material/styles';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+/*mui*/
+import { extendTheme, styled, Container } from '@mui/material';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
-import {AppProvider}  from '@toolpad/core/AppProvider';
+import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
+import { Grid2 } from '@mui/material';
+/*components*/
+import ProductCard from './ProductCard';
+import SearchBar from './SearchBar';
+/*other*/
+import products from '../utils/products';
 
 const NAVIGATION = [
   {
@@ -16,43 +19,14 @@ const NAVIGATION = [
     title: 'Main items',
   },
   {
-    segment: 'dashboard',
-    title: 'Dashboard',
-    icon: <DashboardIcon />,
+    segment: 'ProductsPage',
+    title: 'Products',
+    icon: <InventoryIcon />,
   },
   {
-    segment: 'orders',
-    title: 'Orders',
+    segment: 'CartPage',
+    title: 'Cart',
     icon: <ShoppingCartIcon />,
-  },
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Analytics',
-  },
-  {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-  {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
   },
 ];
 
@@ -94,9 +68,8 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 export default function ProductsPage(props) {
   const { window } = props;
 
-  const router = useDemoRouter('/dashboard');
+  const router = useDemoRouter('/productspage');
 
-  // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
 
   return (
@@ -105,44 +78,35 @@ export default function ProductsPage(props) {
       router={router}
       theme={demoTheme}
       window={demoWindow}
+      branding={{
+        /*logo: <img/>*/
+        title: 'Shoesy',
+      }}
     >
       <DashboardLayout>
-        <PageContainer>
-          <Grid container spacing={1}>
-            <Grid size={5} />
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={4}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={8}>
-              <Skeleton height={100} />
-            </Grid>
 
-            <Grid size={12}>
-              <Skeleton height={150} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-          </Grid>
+        <PageContainer sx={{
+          height: '100vh',
+          width: '100vw',
+          padding: '0',
+        }}>
+          <SearchBar  />
+          <Container maxWidth="lg">
+            <Grid2 container spacing={7}>
+              {products.map((product) => (
+                <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
+                  <ProductCard
+                    productId={product.id}
+                    productImage={product.image}
+                    productName={product.name}
+                    productAlt={product.alt}
+                    productColor={product.color}
+                    productSizes={product.sizes}
+                  />
+                </Grid2>
+              ))}
+            </Grid2>
+          </Container>
         </PageContainer>
       </DashboardLayout>
     </AppProvider>
