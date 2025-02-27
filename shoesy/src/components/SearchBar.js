@@ -45,15 +45,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchBar() {
+export default function SearchBar({onSearch}) {
+
+  const handleChangeInput = (event) => {
+    onSearch(event.target.value);
+  }
+
   return (
-          <Search sx={{marginBottom:'5%'}}>
+          <Search sx={{marginBottom:'5%'}} >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleChangeInput}
             />
           </Search>
 

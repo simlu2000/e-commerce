@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 /*mui*/
 import { extendTheme, styled, Container } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -11,7 +11,7 @@ import { Grid2 } from '@mui/material';
 import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
 /*other*/
-import products from '../utils/products';
+import allproducts from '../utils/products';
 
 const NAVIGATION = [
   {
@@ -67,10 +67,25 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 
 export default function ProductsPage(props) {
   const { window } = props;
-
   const router = useDemoRouter('/productspage');
-
   const demoWindow = window ? window() : undefined;
+
+  const [searchedProduct, setSearchedProduct] = useState();
+  const [products, setProducts] = useState([]);
+
+  const handleSearch = (prod) => {
+    setSearchedProduct(prod);
+  }
+
+  const filteredProducts = products.filter((product) => {
+    return searchedProduct
+    ? product.name.toLowerCase().includes(searchedProduct.toLowerCase())
+    : true;
+  })
+
+  useEffect(() => {
+    setProducts(allproducts);
+  }, [])
 
   return (
     <AppProvider
@@ -90,21 +105,35 @@ export default function ProductsPage(props) {
           width: '100vw',
           padding: '0',
         }}>
-          <SearchBar  />
+          <SearchBar onSearch={handleSearch} />
           <Container maxWidth="lg">
             <Grid2 container spacing={7}>
-              {products.map((product) => (
-                <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
-                  <ProductCard
-                    productId={product.id}
-                    productImage={product.image}
-                    productName={product.name}
-                    productAlt={product.alt}
-                    productColor={product.color}
-                    productSizes={product.sizes}
-                  />
-                </Grid2>
-              ))}
+              {searchedProduct ?
+                filteredProducts.map((product) => (
+                  <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
+                    <ProductCard
+                      productId={product.id}
+                      productImage={product.image}
+                      productName={product.name}
+                      productAlt={product.alt}
+                      productColor={product.color}
+                      productSizes={product.sizes}
+                    />
+
+                  </Grid2>
+                )) :
+                allproducts.map((product) => (
+                  <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
+                    <ProductCard
+                      productId={product.id}
+                      productImage={product.image}
+                      productName={product.name}
+                      productAlt={product.alt}
+                      productColor={product.color}
+                      productSizes={product.sizes}
+                    />
+                  </Grid2>
+                ))}
             </Grid2>
           </Container>
         </PageContainer>

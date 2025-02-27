@@ -27,7 +27,7 @@ export default function ProductCard({productId,productName,productImage,productA
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Color: {productColor}
+          Color: {productColor.join(', ')}
           <br/>
           {productSizes.join(', ')}
         </Typography>
