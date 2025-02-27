@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -40,9 +40,27 @@ const customTheme = (outerTheme) =>
     },
   });
 
-export default function Filters() {
+export default function Filters({ onBrandFilterChange, onColorFilterChange, onSizeFilterChange }) {
   // useTheme is used to determine the dark or light mode of the docs to maintain the Autocomplete component default styles.
   const outerTheme = useTheme();
+  const [selectedBrand, setSelectedBrand] = useState();
+  const [selectedColor, setSelectedColor] = useState();
+  const [selectedSize, setSelectedSize] = useState();
+
+  const handleChangeBrand = (event, value) => {
+    setSelectedBrand(value);
+    onBrandFilterChange(value);
+  }
+
+  const handleChangeColor = (event, value) => {
+    setSelectedColor(value);
+    onColorFilterChange(value);
+  }
+
+  const handleChangeSize = (event, value) => {
+    setSelectedSize(value);
+    onSizeFilterChange(value);
+  }
 
   return (
     <ThemeProvider theme={customTheme(outerTheme)}>
@@ -53,13 +71,13 @@ export default function Filters() {
           width: '100%',
         }}>
           <Box sx={{ flexGrow: 1 }}>
-            <BrandSelect />
+            <BrandSelect onSelect={handleChangeBrand} />
           </Box>
           <Box sx={{ flexGrow: 1 }}>
-            <ColorSelect />
+            <ColorSelect onSelect={handleChangeColor} />
           </Box>
           <Box sx={{ flexGrow: 1 }}>
-            <SizeSelect />
+            <SizeSelect onSelect={handleChangeSize} />
           </Box>
         </Box>
       </Stack>
@@ -67,24 +85,26 @@ export default function Filters() {
   );
 }
 
-function BrandSelect() {
+function BrandSelect({ onSelect }) {
   return (
     <Autocomplete
       options={brands}
       getOptionLabel={(option) => `${option.brand}`}
       disableCloseOnSelect
+      onChange={(event, value) => onSelect(value)}
       renderInput={(params) => (
         <TextField {...params} label="Choose a brand" variant="standard" sx={{ width: '100%' }} />
       )}
     />
   );
 }
-function ColorSelect() {
+function ColorSelect({ onSelect }) {
   return (
     <Autocomplete
       options={colors}
       getOptionLabel={(option) => `${option.color}`}
       disableCloseOnSelect
+      onChange={(event, value) => onSelect(value)}
       renderInput={(params) => (
         <TextField {...params} label="Choose a color" variant="standard" sx={{ width: '100%' }} />
       )}
@@ -92,12 +112,13 @@ function ColorSelect() {
   );
 }
 
-function SizeSelect() {
+function SizeSelect({ onSelect }) {
   return (
     <Autocomplete
       options={sizes}
       getOptionLabel={(option) => `${option.size}`}
       disableCloseOnSelect
+      onChange={(event, value) => onSelect(value)}      
       renderInput={(params) => (
         <TextField {...params} label="Choose a size" variant="standard" sx={{ width: '100%' }} />
       )}

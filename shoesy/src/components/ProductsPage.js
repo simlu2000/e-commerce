@@ -73,20 +73,47 @@ export default function ProductsPage(props) {
 
   const [searchedProduct, setSearchedProduct] = useState();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(allproducts);
+  const [brandFilter, setBrandFilter] = useState('');
+  const [colorFilter, setColorFilter] = useState('');
+  const [sizeFilter, setSizeFilter] = useState('');
 
   const handleSearch = (prod) => {
     setSearchedProduct(prod);
   }
 
-  const filteredProducts = products.filter((product) => {
+  const handleBrandFilterChange = (brand) => {
+    setBrandFilter(brand);
+  };
+
+  const handleColorFilterChange = (color) => {
+    setColorFilter(color);
+  };
+
+  const handleSizeFilterChange = (size) => {
+    setSizeFilter(size);
+  };
+
+  const listSearchedProducts = products.filter((product) => {
     return searchedProduct
-    ? product.name.toLowerCase().includes(searchedProduct.toLowerCase())
-    : true;
+      ? product.name?.toLowerCase().includes(searchedProduct.toLowerCase())
+      : true;
   })
 
   useEffect(() => {
-    setProducts(allproducts);
-  }, [])
+    let filteredList = allproducts.filter((product) => {
+      const nameMatch = product.name
+        ? product.name.toLowerCase().includes(searchedProduct?.toLowerCase() || '')
+        : true;
+  
+        const brandMatch = !brandFilter || (product.brand && product.brand.toLowerCase() === (brandFilter.toLowerCase()));
+        const colorMatch = !colorFilter || (product.color && product.color.some((col) => col.toLowerCase() === colorFilter.toLowerCase()));
+        const sizeMatch = !sizeFilter || (product.sizes && product.sizes.includes(parseInt(sizeFilter)));
+  
+      return nameMatch && brandMatch && colorMatch && sizeMatch;
+    });
+    setFilteredProducts(filteredList);
+  }, [searchedProduct, brandFilter, colorFilter, sizeFilter]);
 
   return (
     <AppProvider
@@ -100,18 +127,19 @@ export default function ProductsPage(props) {
       }}
     >
       <DashboardLayout>
-
         <PageContainer sx={{
           height: '100vh',
           width: '100vw',
           padding: '0',
         }}>
           <SearchBar onSearch={handleSearch} />
-          <Filters/>
-          <Container maxWidth="lg" sx={{marginTop:"5%"}}>
+          <Filters
+            onBrandFilterChange={handleBrandFilterChange}
+            onColorFilterChange={handleColorFilterChange}
+            onSizeFilterChange={handleSizeFilterChange} />
+          <Container maxWidth="lg" sx={{ marginTop: "5%" }}>
             <Grid2 container spacing={7}>
-              {searchedProduct ?
-                filteredProducts.map((product) => (
+              {filteredProducts.map((product) => (
                   <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
                     <ProductCard
                       productId={product.id}
@@ -122,18 +150,6 @@ export default function ProductsPage(props) {
                       productSizes={product.sizes}
                     />
 
-                  </Grid2>
-                )) :
-                allproducts.map((product) => (
-                  <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
-                    <ProductCard
-                      productId={product.id}
-                      productImage={product.image}
-                      productName={product.name}
-                      productAlt={product.alt}
-                      productColor={product.color}
-                      productSizes={product.sizes}
-                    />
                   </Grid2>
                 ))}
             </Grid2>
