@@ -11,7 +11,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-export default function ProductCard({ productId, productName, productImage, productAlt, productColor, productSizes, openBox}) {
+export default function ProductCard({ productId, productName, productImage, productAlt, productColor, productSizes, openBox,productPrice}) {
 
   return (
     <Card sx={{ width: '250px', height: '400px', textAlign: 'center' }}>
@@ -31,6 +31,7 @@ export default function ProductCard({ productId, productName, productImage, prod
           <br />
           {productSizes.join(', ')}
         </Typography>*/}
+        <Typography variant='body2'>{productPrice}$</Typography>
       </CardContent>
       <CardActions sx={{ top: '5%' }}>
         <IconButton aria-label="add to cart">

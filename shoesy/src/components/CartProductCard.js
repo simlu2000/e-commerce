@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export default function CartProductCard({ productId, productName, productImage, productAlt, productColor, productSize }) {
+export default function CartProductCard({ productId, productName, productImage, productAlt, productColor, productSize,productPrice }) {
+
   return (
     <Card sx={{ width: '250px', height: '400px', textAlign: 'center' }}>
       <CardHeader title={productName} />
@@ -15,6 +16,8 @@ export default function CartProductCard({ productId, productName, productImage, 
           Color: {productColor}
           <br />
           Size: {productSize}
+          <br/>
+          Price: {productPrice}
         </Typography>
       </CardContent>
     </Card>

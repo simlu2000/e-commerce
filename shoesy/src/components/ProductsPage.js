@@ -165,6 +165,8 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
                         productColor={product.color}
                         productSizes={product.sizes}
                         openBox={() => onProductClick(product)}
+                        productPrice={product.price}
+
                       />
                     </Grid2>
                   ))}

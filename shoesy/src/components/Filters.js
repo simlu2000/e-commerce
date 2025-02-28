@@ -72,13 +72,13 @@ export default function Filters({ onBrandFilterChange, onColorFilterChange, onSi
           width: '100%',
         }}>
           <Box sx={{ flexGrow: 1 }}>
-            <BrandSelect onSelect={handleChangeBrand} />
+            <BrandSelect onChange={handleChangeBrand} />
           </Box>
           <Box sx={{ flexGrow: 1 }}>
-            <ColorSelect onSelect={handleChangeColor} />
+            <ColorSelect onChange={handleChangeColor} />
           </Box>
           <Box sx={{ flexGrow: 1 }}>
-            <SizeSelect onSelect={handleChangeSize} />
+            <SizeSelect onChange={handleChangeSize} />
           </Box>
         </Box>
       </Stack>
@@ -86,26 +86,26 @@ export default function Filters({ onBrandFilterChange, onColorFilterChange, onSi
   );
 }
 
-function BrandSelect({ onSelect }) {
+function BrandSelect({ onChange }) {
   return (
     <Autocomplete
       options={brands}
       getOptionLabel={(option) => `${option.brand}`}
       disableCloseOnSelect
-      onChange={(event, value) => onSelect(value)}
+      onChange={(event, value) => onChange(value)}
       renderInput={(params) => (
         <TextField {...params} label="Choose a brand" variant="standard" sx={{ width: '100%' }} />
       )}
     />
   );
 }
-function ColorSelect({ onSelect }) {
+function ColorSelect({ onChange}) {
   return (
     <Autocomplete
       options={colors}
       getOptionLabel={(option) => `${option.color}`}
       disableCloseOnSelect
-      onChange={(event, value) => onSelect(value)}
+      onChange={(event, value) => onChange(value)}
       renderInput={(params) => (
         <TextField {...params} label="Choose a color" variant="standard" sx={{ width: '100%' }} />
       )}
@@ -113,13 +113,13 @@ function ColorSelect({ onSelect }) {
   );
 }
 
-function SizeSelect({ onSelect }) {
+function SizeSelect({ onChange }) {
   return (
     <Autocomplete
       options={sizes}
       getOptionLabel={(option) => `${option.size}`}
       disableCloseOnSelect
-      onChange={(event, value) => onSelect(value)}      
+      onChange={(event, value) => onChange(value)}      
       renderInput={(params) => (
         <TextField {...params} label="Choose a size" variant="standard" sx={{ width: '100%' }} />
       )}

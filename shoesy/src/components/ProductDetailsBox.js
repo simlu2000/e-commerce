@@ -43,7 +43,8 @@ export default function ProductDetailsBox({ open, onClose, product }) {
             name: product.name,
             color: product.color.join(', '),
             size: selectedSize,
-            image: product.image
+            image: product.image,
+            price:product.price,
         };
 
         addToCart(selectedProduct); //aggiorniamo\
@@ -90,6 +91,8 @@ export default function ProductDetailsBox({ open, onClose, product }) {
                         <ListItemText primary="Brand" secondary={product.brand} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Name" secondary={product.name} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Color" secondary={product.color.join(', ')} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <ListItemText primary="Price" secondary={product.price} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+
                         <select style={{ fontSize: '1.2rem', padding: '8px' }} onChange={(event)=>handleSelectShoesSize(event)}>
                             {product.sizes.map((size, index) => (
                                 <option key={index} value={size}>
