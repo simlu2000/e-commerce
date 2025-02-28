@@ -87,15 +87,15 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
   }
 
   const handleBrandFilterChange = (brand) => {
-    setBrandFilter(brand);
+    setBrandFilter(brand ? brand.brand : '');
   };
 
   const handleColorFilterChange = (color) => {
-    setColorFilter(color);
+    setColorFilter(color ? color.color : '');
   };
 
   const handleSizeFilterChange = (size) => {
-    setSizeFilter(size);
+    setSizeFilter(size ? size.size : '');
   };
 
   const listSearchedProducts = products.filter((product) => {
@@ -110,8 +110,10 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
         ? product.name.toLowerCase().includes(searchedProduct?.toLowerCase() || '')
         : true;
 
-      const brandMatch = !brandFilter || (product.brand && product.brand.toLowerCase() === (brandFilter.toLowerCase()));
+      const brandMatch = !brandFilter || (product.brand && product.brand.toLowerCase() === brandFilter.toLowerCase());
+
       const colorMatch = !colorFilter || (product.color && product.color.some((col) => col.toLowerCase() === colorFilter.toLowerCase()));
+
       const sizeMatch = !sizeFilter || (product.sizes && product.sizes.includes(parseInt(sizeFilter)));
 
       return nameMatch && brandMatch && colorMatch && sizeMatch;
@@ -130,45 +132,57 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
       theme={demoTheme}
       window={demoWindow}
       branding={{
-        logo: <img src={logo}/>,
+        logo: <img src={logo} />,
         title: 'Shoesy',
       }}
     >
       <DashboardLayout>
-        <PageContainer sx={{
-          height: '100vh',
-          width: '100vw',
-          padding: '0',
-        }}>
-          <SearchBar onSearch={handleSearch} />
-          <Filters
-            onBrandFilterChange={handleBrandFilterChange}
-            onColorFilterChange={handleColorFilterChange}
-            onSizeFilterChange={handleSizeFilterChange} />
-          <Container maxWidth="lg" sx={{ marginTop: "5%" }}>
-            <Grid2 container spacing={7}>
-              {filteredProducts.map((product) => (
-                <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
-                  <ProductCard
-                    productId={product.id}
-                    productImage={product.image}
-                    productName={product.name}
-                    productAlt={product.alt}
-                    productColor={product.color}
-                    productSizes={product.sizes}
-                    openBox={() => onProductClick(product)}
-                  />
+        <PageContainer
+          sx={{
+            height: '100vh',
+            width: '100vw',
+            padding: '0',
+          }}
+        >
+          {router.pathname === '/ProductsPage' && (
+            <>
+              <SearchBar onSearch={handleSearch} />
+              <Filters
+                onBrandFilterChange={handleBrandFilterChange}
+                onColorFilterChange={handleColorFilterChange}
+                onSizeFilterChange={handleSizeFilterChange}
+              />
+              <Container maxWidth="lg" sx={{ marginTop: '5%' }}>
+                <Grid2 container spacing={7}>
+                  {filteredProducts.map((product) => (
+                    <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
+                      <ProductCard
+                        productId={product.id}
+                        productImage={product.image}
+                        productName={product.name}
+                        productAlt={product.alt}
+                        productColor={product.color}
+                        productSizes={product.sizes}
+                        openBox={() => onProductClick(product)}
+                      />
+                    </Grid2>
+                  ))}
+                  {openDetailsBox && selectedProduct && (
+                    <ProductDetailsBox
+                      open={openDetailsBox}
+                      onClose={() => setOpenDetailsBox(false)}
+                      product={selectedProduct}
+                    />
+                  )}
                 </Grid2>
-              ))}
-              {openDetailsBox && selectedProduct && (
-                <ProductDetailsBox
-                  open={openDetailsBox}
-                  onClose={() => setOpenDetailsBox(false)}
-                  product={selectedProduct}
-                />
-              )}
-            </Grid2>
-          </Container>
+              </Container>
+            </>
+          )}
+
+          {router.pathname === '/CartPage' && (
+            <h1>CART</h1>
+          )}
+
         </PageContainer>
       </DashboardLayout>
     </AppProvider>

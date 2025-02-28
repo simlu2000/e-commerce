@@ -10,11 +10,11 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleOpenDetailsBox = (product) => {
-    console.log("Product clicked:", product); 
-
+    console.log("Product clicked:", product);
     setSelectedProduct(product);
     setOpenDetailsBox(true);
   }
+
 
   return (
     <Router>
@@ -28,7 +28,7 @@ function App() {
           />
         }
         />
-        <Route path="/cartpage" element={<CartPage />} />
+        <Route path="/cartpage" element={<CartPage/>} />
         <Route path="/checkoutpage" element={<CheckoutPage />} />
       </Routes>
     </Router>

@@ -58,8 +58,9 @@ export default function Filters({ onBrandFilterChange, onColorFilterChange, onSi
   }
 
   const handleChangeSize = (event, value) => {
-    setSelectedSize(value);
-    onSizeFilterChange(value);
+    const sizeValue = value ? parseInt(value.size) : '';
+    setSelectedSize(sizeValue);
+    onSizeFilterChange(sizeValue);
   }
 
   return (

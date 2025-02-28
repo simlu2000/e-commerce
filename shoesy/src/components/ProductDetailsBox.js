@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
@@ -11,18 +11,48 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import ProductsPage from './ProductsPage';
+import CartButton from './CartButton';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function ProductDetailsBox({ open, onClose, product }) {
+    const [selectedBrand, setSelectedBrand] = useState(product.brand);
+    const [selectedName, setSelectedName] = useState(product.name);
+    const [selectedCololors, setSelectedColors] = useState(product.color);
+    const [selectedSize, setSelectedSize] = useState(null);
+
+    const handleSelectShoesSize = (event) => {
+        setSelectedSize(event.target.value);
+    }
+
+    const handleSendToCart=()=>{
+        if(!selectedSize){
+            alert('Please select a size');
+            return;
+        }
+
+        const selectedProduct = {
+            id: product.id,
+            brand: product.brand,
+            name: product.name,
+            color: product.color.join(', '),
+            size: selectedSize,
+            image: product.image
+        };
+
+        
+        alert('Product added to cart');
+    }
 
     if (!product) {
         return null; // or a loading state, or an empty component
     }
 
     return (
+
         <Dialog
             fullScreen
             open={open}
@@ -47,17 +77,25 @@ export default function ProductDetailsBox({ open, onClose, product }) {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <List sx={{display:'flex',flexDirection:'row',alignItems:'flex-start'}}>
-                <img style={{ width: '40%', marginLeft:'1%', marginTop:'1%'}} src={product.image}></img>
-                <ListItemButton sx={{display:'flex',flexDirection:'column',alignItems:'flex-start',marginLeft:'2%', marginTop:'0'}}>
-                    <ListItemText primary="Brand" secondary={product.brand} />
-                    <ListItemText primary="Name" secondary={product.name} />
-                    <ListItemText primary="Color" secondary={product.color.join(', ')} />
-                    <ListItemText primary="Sizes" secondary={product.sizes.join(', ')} />
-                </ListItemButton>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+                <img style={{ width: '40%', marginLeft: '1%', marginTop: '1%' }} src={product.image} alt={product.name}></img>
 
-                <Divider />
-            </List>
+                <List sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+                    <ListItemButton sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '2%', marginTop: '0' }}>
+                        <ListItemText primary="Brand" secondary={product.brand} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <ListItemText primary="Name" secondary={product.name} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <ListItemText primary="Color" secondary={product.color.join(', ')} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <select style={{ fontSize: '1.2rem', padding: '8px' }} onSelect={(event)=>handleSelectShoesSize(event)}>
+                            {product.sizes.map((size, index) => (
+                                <option key={index} value={size}>
+                                    {size}
+                                </option>
+                            ))}
+                        </select>
+                        <CartButton onClick={handleSendToCart}/>
+                    </ListItemButton>
+                </List>
+            </div>
         </Dialog>
     );
 }
