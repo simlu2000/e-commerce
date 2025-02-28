@@ -16,6 +16,7 @@ import ProductDetailsBox from './ProductDetailsBox';
 import allproducts from '../utils/products';
 import App from '../App';
 import logo from "../utils/shoesylogo.png";
+import CartPage from './CartPage';
 
 const NAVIGATION = [
   {
@@ -180,7 +181,7 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
           )}
 
           {router.pathname === '/CartPage' && (
-            <h1>CART</h1>
+            <CartPage/>
           )}
 
         </PageContainer>

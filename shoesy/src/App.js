@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductsPage from './components/ProductsPage';
 import CartPage from './components/CartPage';
 import CheckoutPage from './components/CheckoutPage';
-
+import { CartProvider } from './components/CartContext';
 function App() {
   const [openDetailsBox, setOpenDetailsBox] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);

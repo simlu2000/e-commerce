@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
@@ -13,6 +13,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import ProductsPage from './ProductsPage';
 import CartButton from './CartButton';
+import {CartContext} from './CartContext';
+import {useCart} from './CartContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -23,6 +25,7 @@ export default function ProductDetailsBox({ open, onClose, product }) {
     const [selectedName, setSelectedName] = useState(product.name);
     const [selectedCololors, setSelectedColors] = useState(product.color);
     const [selectedSize, setSelectedSize] = useState(null);
+    const { addToCart } = useCart(); //accedo a contesto carrello
 
     const handleSelectShoesSize = (event) => {
         setSelectedSize(event.target.value);
@@ -34,7 +37,7 @@ export default function ProductDetailsBox({ open, onClose, product }) {
             return;
         }
 
-        const selectedProduct = {
+        const selectedProduct = { //array di oggetti per prodotto selezionato
             id: product.id,
             brand: product.brand,
             name: product.name,
@@ -43,8 +46,10 @@ export default function ProductDetailsBox({ open, onClose, product }) {
             image: product.image
         };
 
-        
+        addToCart(selectedProduct); //aggiorniamo\
+        console.log('Product added to cart');
         alert('Product added to cart');
+        onClose(); //chiudiamo dialog
     }
 
     if (!product) {
@@ -85,16 +90,16 @@ export default function ProductDetailsBox({ open, onClose, product }) {
                         <ListItemText primary="Brand" secondary={product.brand} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Name" secondary={product.name} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Color" secondary={product.color.join(', ')} primaryTypographyProps={{ fontSize: '1.5rem' }} />
-                        <select style={{ fontSize: '1.2rem', padding: '8px' }} onSelect={(event)=>handleSelectShoesSize(event)}>
+                        <select style={{ fontSize: '1.2rem', padding: '8px' }} onChange={(event)=>handleSelectShoesSize(event)}>
                             {product.sizes.map((size, index) => (
                                 <option key={index} value={size}>
                                     {size}
                                 </option>
                             ))}
                         </select>
-                        <CartButton onClick={handleSendToCart}/>
-                    </ListItemButton>
-                </List>
+                    </ListItemButton> 
+                    <CartButton onClick={handleSendToCart}/>
+                </List>                       
             </div>
         </Dialog>
     );

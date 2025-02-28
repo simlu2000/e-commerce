@@ -32,7 +32,7 @@ export default function ProductCard({ productId, productName, productImage, prod
           {productSizes.join(', ')}
         </Typography>*/}
       </CardContent>
-      <CardActions ableSpacing sx={{ top: '5%' }}>
+      <CardActions sx={{ top: '5%' }}>
         <IconButton aria-label="add to cart">
           <ShoppingCartIcon />
         </IconButton>
