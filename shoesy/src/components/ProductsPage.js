@@ -15,6 +15,8 @@ import ProductDetailsBox from './ProductDetailsBox';
 /*other*/
 import allproducts from '../utils/products';
 import App from '../App';
+import logo from "../utils/shoesylogo.png";
+
 const NAVIGATION = [
   {
     kind: 'header',
@@ -128,7 +130,7 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
       theme={demoTheme}
       window={demoWindow}
       branding={{
-        /*logo: <img/>*/
+        logo: <img src={logo}/>,
         title: 'Shoesy',
       }}
     >
