@@ -34,9 +34,6 @@ export default function ProductCard({ productId, productName, productImage, prod
         <Typography variant='body2'>{productPrice}$</Typography>
       </CardContent>
       <CardActions sx={{ top: '5%' }}>
-        <IconButton aria-label="add to cart">
-          <ShoppingCartIcon />
-        </IconButton>
         <IconButton aria-label="product details" onClick={openBox}>
           <DescriptionIcon/>
         </IconButton>

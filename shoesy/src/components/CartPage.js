@@ -3,6 +3,7 @@ import { useCart } from './CartContext';
 import CartProductCard from './CartProductCard';
 import { Grid2 } from '@mui/material';
 import Container from '@mui/material/Container';
+import CheckoutButton from './CheckoutButton';
 
 function CartPage() {
   const { cartItems } = useCart();
@@ -42,6 +43,7 @@ function CartPage() {
         )}
       </Grid2>
       <h2>Total Price: ${totPrice.toFixed(2)}</h2>
+      <CheckoutButton priceToPay={totPrice.toFixed(2)}/>
     </Container>
   );
 }
