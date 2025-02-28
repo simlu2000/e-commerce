@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -7,15 +7,14 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import DescriptionIcon from '@mui/icons-material/Description';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-export default function ProductCard({productId,productName,productImage,productAlt,productColor,productSizes}) {
+export default function ProductCard({ productId, productName, productImage, productAlt, productColor, productSizes, openBox}) {
 
   return (
-    <Card sx={{ width:'250px',height:'450px',textAlign:'center'}}>
+    <Card sx={{ width: '250px', height: '450px', textAlign: 'center' }}>
       <CardHeader
         title={productName}
       />
@@ -27,17 +26,17 @@ export default function ProductCard({productId,productName,productImage,productA
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Color: 
+          Color:
           {productColor.join(', ')}
-          <br/>
+          <br />
           {productSizes.join(', ')}
         </Typography>
       </CardContent>
-      <CardActions ableSpacing sx={{top:'5%'}}>
+      <CardActions ableSpacing sx={{ top: '5%' }}>
         <IconButton aria-label="add to cart">
           <ShoppingCartIcon />
         </IconButton>
-        <IconButton aria-label="add to cart">
+        <IconButton aria-label="product details" onClick={openBox}>
           <DescriptionIcon/>
         </IconButton>
       </CardActions>

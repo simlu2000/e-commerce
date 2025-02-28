@@ -11,9 +11,10 @@ import { Grid2 } from '@mui/material';
 import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
 import Filters from './Filters';
+import ProductDetailsBox from './ProductDetailsBox';
 /*other*/
 import allproducts from '../utils/products';
-
+import App from '../App';
 const NAVIGATION = [
   {
     kind: 'header',
@@ -66,10 +67,10 @@ const Skeleton = styled('div')(({ theme, height }) => ({
   content: '" "',
 }));
 
-export default function ProductsPage(props) {
-  const { window } = props;
+export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProductClick, selectedProduct }) {
+
   const router = useDemoRouter('/productspage');
-  const demoWindow = window ? window() : undefined;
+  const demoWindow = undefined;
 
   const [searchedProduct, setSearchedProduct] = useState();
   const [products, setProducts] = useState([]);
@@ -77,6 +78,7 @@ export default function ProductsPage(props) {
   const [brandFilter, setBrandFilter] = useState('');
   const [colorFilter, setColorFilter] = useState('');
   const [sizeFilter, setSizeFilter] = useState('');
+
 
   const handleSearch = (prod) => {
     setSearchedProduct(prod);
@@ -105,15 +107,19 @@ export default function ProductsPage(props) {
       const nameMatch = product.name
         ? product.name.toLowerCase().includes(searchedProduct?.toLowerCase() || '')
         : true;
-  
-        const brandMatch = !brandFilter || (product.brand && product.brand.toLowerCase() === (brandFilter.toLowerCase()));
-        const colorMatch = !colorFilter || (product.color && product.color.some((col) => col.toLowerCase() === colorFilter.toLowerCase()));
-        const sizeMatch = !sizeFilter || (product.sizes && product.sizes.includes(parseInt(sizeFilter)));
-  
+
+      const brandMatch = !brandFilter || (product.brand && product.brand.toLowerCase() === (brandFilter.toLowerCase()));
+      const colorMatch = !colorFilter || (product.color && product.color.some((col) => col.toLowerCase() === colorFilter.toLowerCase()));
+      const sizeMatch = !sizeFilter || (product.sizes && product.sizes.includes(parseInt(sizeFilter)));
+
       return nameMatch && brandMatch && colorMatch && sizeMatch;
     });
     setFilteredProducts(filteredList);
   }, [searchedProduct, brandFilter, colorFilter, sizeFilter]);
+
+  useEffect(() => {
+    setProducts(allproducts);
+  }, []);
 
   return (
     <AppProvider
@@ -140,18 +146,25 @@ export default function ProductsPage(props) {
           <Container maxWidth="lg" sx={{ marginTop: "5%" }}>
             <Grid2 container spacing={7}>
               {filteredProducts.map((product) => (
-                  <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
-                    <ProductCard
-                      productId={product.id}
-                      productImage={product.image}
-                      productName={product.name}
-                      productAlt={product.alt}
-                      productColor={product.color}
-                      productSizes={product.sizes}
-                    />
-
-                  </Grid2>
-                ))}
+                <Grid2 item xs={12} sm={6} md={2.4} lg={2.4} sx={{ flexBasis: '20%' }} key={product.id}>
+                  <ProductCard
+                    productId={product.id}
+                    productImage={product.image}
+                    productName={product.name}
+                    productAlt={product.alt}
+                    productColor={product.color}
+                    productSizes={product.sizes}
+                    openBox={() => onProductClick(product)}
+                  />
+                </Grid2>
+              ))}
+              {openDetailsBox && selectedProduct && (
+                <ProductDetailsBox
+                  open={openDetailsBox}
+                  onClose={() => setOpenDetailsBox(false)}
+                  product={selectedProduct}
+                />
+              )}
             </Grid2>
           </Container>
         </PageContainer>

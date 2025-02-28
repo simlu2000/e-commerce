@@ -21,7 +21,7 @@ const allproducts = [
     id: 3,
     brand:"Puma",
     name: "Puma Suede",
-    image: "https://www.80scasualclassics.co.uk/images/puma-suede-classic-bboy-fabulous-trainers-red-white-p10271-63762_thumbmini.jpg",
+    image: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_550,h_550/global/399781/05/fnd/EEA/fmt/png/Sneakers-Suede-Classic-unisex",
     alt: "Puma Suede Classic shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color:["White","Red"]
@@ -30,7 +30,7 @@ const allproducts = [
     id: 4,
     brand:"Vans",
     name: "Vans Old Skool",
-    image: "https://static.shiekh.com/media/catalog/product/cache/image/2000x2000/e9c3970ab036de70892d86c6d221abfe/8/8/88261b58e3b2a6c43cce9a6480908ee3.jpg",
+    image: "https://img01.ztat.net/article/spp-media-p1/1d120b21cbe7360c907f5ddfda94342d/9da699c86efb4f959aaf5e0b80ef1d0e.jpg?imwidth=1800",
     alt: "Vans Old Skool shoes",
     sizes: [36, 37, 38, 39, 40, 41, 42, 43],
     color:["White","Blu"]
