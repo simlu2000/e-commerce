@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CartProvider } from './components/CartContext';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <CartProvider>
-    <App />
-  </CartProvider>
+  <Provider store={store}>
+    <CartProvider>
+      <App />
+    </CartProvider>
+  </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

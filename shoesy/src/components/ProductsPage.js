@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect, useSelector, useDispatch } from 'react-redux'; 
+//dispatch invia azione a store
+//quando invio azione, redux chiama i reducer con l'azione e stato corrente
+//i reducer aggiornano lo stato in base all'azione e restituiscono nuovo stato
 /*mui*/
 import { extendTheme, styled, Container } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -17,6 +21,10 @@ import allproducts from '../utils/products';
 import App from '../App';
 import logo from "../utils/shoesylogo.png";
 import CartPage from './CartPage';
+
+/*redux*/
+import { setSearchedProduct, setFilteredProducts, setSelectedProduct, closeDetailsBox } from '../redux/actions/productActions';
+import { setBrandFilter, setColorFilter, setSizeFilter } from '../redux/actions/filterActions';
 
 const NAVIGATION = [
   {
@@ -70,43 +78,38 @@ const Skeleton = styled('div')(({ theme, height }) => ({
   content: '" "',
 }));
 
-export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProductClick, selectedProduct }) {
-
+function ProductsPage() {
+  const dispatch = useDispatch();
   const router = useDemoRouter('/productspage');
   const demoWindow = undefined;
 
-  const [searchedProduct, setSearchedProduct] = useState();
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState(allproducts);
-  const [brandFilter, setBrandFilter] = useState('');
-  const [colorFilter, setColorFilter] = useState('');
-  const [sizeFilter, setSizeFilter] = useState('');
-
+  // accesso a stato redux usando useSelector
+  const { allProducts, filteredProducts, selectedProduct, openDetailsBox } = useSelector((state) => state.products);
+  const { brandFilter, colorFilter, sizeFilter } = useSelector((state) => state.filters);
+  const { searchedProduct } = useSelector((state) => state.products); //recupero searchedProduct dallo store
 
   const handleSearch = (prod) => {
-    setSearchedProduct(prod);
-  }
+    dispatch(setSearchedProduct(prod));
+  };
 
   const handleBrandFilterChange = (brand) => {
-    setBrandFilter(brand ? brand.brand : '');
+    dispatch(setBrandFilter(brand ? brand.brand : ''));
   };
 
   const handleColorFilterChange = (color) => {
-    setColorFilter(color ? color.color : '');
+    dispatch(setColorFilter(color ? color.color : ''));
   };
 
   const handleSizeFilterChange = (size) => {
-    setSizeFilter(size ? size.size : '');
+    dispatch(setSizeFilter(size ? size.size : ''));
   };
 
-  const listSearchedProducts = products.filter((product) => {
-    return searchedProduct
-      ? product.name?.toLowerCase().includes(searchedProduct.toLowerCase())
-      : true;
-  })
+  const onProductClick = (product) => {
+    dispatch(setSelectedProduct(product));
+  };
 
   useEffect(() => {
-    let filteredList = allproducts.filter((product) => {
+    const filteredList = allProducts.filter((product) => {
       const nameMatch = product.name
         ? product.name.toLowerCase().includes(searchedProduct?.toLowerCase() || '')
         : true;
@@ -119,12 +122,8 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
 
       return nameMatch && brandMatch && colorMatch && sizeMatch;
     });
-    setFilteredProducts(filteredList);
-  }, [searchedProduct, brandFilter, colorFilter, sizeFilter]);
-
-  useEffect(() => {
-    setProducts(allproducts);
-  }, []);
+    dispatch(setFilteredProducts(filteredList));
+  }, [searchedProduct, brandFilter, colorFilter, sizeFilter, allProducts, dispatch]); 
 
   return (
     <AppProvider
@@ -166,14 +165,13 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
                         productSizes={product.sizes}
                         openBox={() => onProductClick(product)}
                         productPrice={product.price}
-
                       />
                     </Grid2>
                   ))}
                   {openDetailsBox && selectedProduct && (
                     <ProductDetailsBox
                       open={openDetailsBox}
-                      onClose={() => setOpenDetailsBox(false)}
+                      onClose={() => dispatch(closeDetailsBox())} 
                       product={selectedProduct}
                     />
                   )}
@@ -182,12 +180,11 @@ export default function ProductsPage({ openDetailsBox, setOpenDetailsBox, onProd
             </>
           )}
 
-          {router.pathname === '/CartPage' && (
-            <CartPage/>
-          )}
-
+          {router.pathname === '/CartPage' && <CartPage />}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>
   );
 }
+
+export default ProductsPage; 
