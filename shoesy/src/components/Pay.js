@@ -42,7 +42,7 @@ export default function Pay({ priceToPay, onCheckout }) {
   return message ? (
     <Message message={message} />
   ) : priceToPay ? (
-    <ToPay total={priceToPay} OnCheckout={onCheckout} />
+    <ToPay total={priceToPay} onCheckout={onCheckout} />
   ) : (
     <p>No price available</p>
   );
