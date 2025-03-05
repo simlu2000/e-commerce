@@ -3,21 +3,47 @@ import { useCart } from './CartContext';
 import CartProductCard from './CartProductCard';
 import { Grid2 } from '@mui/material';
 import Container from '@mui/material/Container';
-import CheckoutButton from './CheckoutButton';
-
+import Pay from './Pay';
 function CartPage() {
   const { cartItems } = useCart();
   const [totPrice, setTotPrice] = useState(0);
+
+  const handleCheckout = async () => {
+    try {
+      //array di oggetti che contiene per ogni prodotto il priceid e qta
+      const cartItemsStripe = cartItems.map(item => ({
+        priceId: 'price_' + item.id,
+        quantity: 1,
+      }));
+
+      const response = await fetch('/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartItemsStripe }),
+      });
+
+      if (response.ok) {
+        const { url } = await response.json();
+        window.location.href = url; //reindirizzamento su stripe per pagare
+      } else {
+        console.error('Errore durante la richiesta di checkout:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Errore durante la richiesta di checkout:', error);
+    }
+  }
 
   useEffect(() => {
     if (cartItems && cartItems.length > 0) {
       const total = cartItems.reduce((acc, item) => {
         const itemPrice = parseFloat(item.price); //verifico che il prezzo sia un numero
-        return acc + (isNaN(itemPrice) ? 0 : itemPrice); 
+        return acc + (isNaN(itemPrice) ? 0 : itemPrice);
       }, 0);
       setTotPrice(total);
     } else {
-      setTotPrice(0); 
+      setTotPrice(0);
     }
   }, [cartItems]);
 
@@ -42,8 +68,7 @@ function CartPage() {
           <p>Empty cart!</p>
         )}
       </Grid2>
-      <h2>Total Price: ${totPrice.toFixed(2)}</h2>
-      <CheckoutButton priceToPay={totPrice.toFixed(2)}/>
+      <Pay priceToPay={totPrice} onCheckout={handleCheckout}/>
     </Container>
   );
 }

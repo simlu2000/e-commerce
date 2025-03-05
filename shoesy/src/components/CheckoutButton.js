@@ -1,15 +1,14 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Payment from '@mui/icons-material/Payment';
 
-export default function CheckoutButton({ onClick, priceToPay }) {
+export default function CheckoutButton({ tot, onClick }) {
     return (
         <Stack spacing={2} direction="row" sx={{ marginTop: '5%' }}>
-            <Button variant="contained" onClick={onClick}>
+            <Button type="submit" variant="contained" onClick={onClick}>
                 <Payment />
-                Pay ${priceToPay}
+                Pay ${tot !== undefined && tot !== null ? tot : '0'}
             </Button>
         </Stack>
     );

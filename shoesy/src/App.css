@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+#checkout-button{
+  background-color: #5271ff;
+  color:#FFFFFF;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border:none;
+}

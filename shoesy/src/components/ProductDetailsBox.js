@@ -13,8 +13,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import ProductsPage from './ProductsPage';
 import CartButton from './CartButton';
-import {CartContext} from './CartContext';
-import {useCart} from './CartContext';
+import { CartContext } from './CartContext';
+import { useCart } from './CartContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -31,8 +31,8 @@ export default function ProductDetailsBox({ open, onClose, product }) {
         setSelectedSize(event.target.value);
     }
 
-    const handleSendToCart=()=>{
-        if(!selectedSize){
+    const handleSendToCart = () => {
+        if (!selectedSize) {
             alert('Please select a size');
             return;
         }
@@ -44,7 +44,7 @@ export default function ProductDetailsBox({ open, onClose, product }) {
             color: product.color.join(', '),
             size: selectedSize,
             image: product.image,
-            price:product.price,
+            price: product.price,
         };
 
         addToCart(selectedProduct); //aggiorniamo\
@@ -57,8 +57,8 @@ export default function ProductDetailsBox({ open, onClose, product }) {
         return null; // or a loading state, or an empty component
     }
 
+    
     return (
-
         <Dialog
             fullScreen
             open={open}
@@ -84,25 +84,27 @@ export default function ProductDetailsBox({ open, onClose, product }) {
                 </Toolbar>
             </AppBar>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
-                <img style={{ width: '40%', marginLeft: '1%', marginTop: '1%' }} src={product.image} alt={product.name}></img>
+                <img style={{ width: '50%', marginLeft: '1%', marginTop: '1%', borderRadius: '25px' }} src={product.image} alt={product.name}></img>
 
-                <List sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
-                    <ListItemButton sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '2%', marginTop: '0' }}>
+                <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '2%', marginTop: '0' }}>
+                    <ListItemButton sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <ListItemText primary="Brand" secondary={product.brand} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Name" secondary={product.name} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Color" secondary={product.color.join(', ')} primaryTypographyProps={{ fontSize: '1.5rem' }} />
-                        <ListItemText primary="Price" secondary={product.price} primaryTypographyProps={{ fontSize: '1.5rem' }} />
-
-                        <select style={{ fontSize: '1.2rem', padding: '8px' }} onChange={(event)=>handleSelectShoesSize(event)}>
+                        <ListItemText primary="Price" secondary={product.price + ' $'} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <ListItemText primary="Size" primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <select style={{ fontSize: '1.2rem', padding: '8px' }} onChange={(event) => handleSelectShoesSize(event)}>
                             {product.sizes.map((size, index) => (
                                 <option key={index} value={size}>
                                     {size}
                                 </option>
                             ))}
                         </select>
-                    </ListItemButton> 
-                    <CartButton onClick={handleSendToCart}/>
-                </List>                       
+                    </ListItemButton>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '20px', marginLeft:'5%' }}>
+                        <CartButton onClick={handleSendToCart} />
+                    </div>
+                </List>
             </div>
         </Dialog>
     );
