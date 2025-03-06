@@ -1,129 +1,55 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
-import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import { createTheme, useTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
+import { setBrandFilter, setColorFilter, setSizeFilter } from '../redux/actions/filterActions';
 import brands from '../utils/brands';
 import sizes from '../utils/sizes';
 import colors from '../utils/colors';
-import { setBrandFilter, setColorFilter, setSizeFilter } from '../redux/actions/filterActions';
-
-const customTheme = (outerTheme) =>
-  createTheme({
-    palette: {
-      mode: outerTheme.palette.mode,
-    },
-    components: {
-      MuiAutocomplete: {
-        defaultProps: {
-          renderOption: (props, option, state, ownerState) => {
-            const { key, ...optionProps } = props;
-            return (
-              <Box
-                key={key}
-                sx={{
-                  borderRadius: '8px',
-                  margin: '5px',
-                  [`&.${autocompleteClasses.option}`]: {
-                    padding: '8px',
-                  },
-                }}
-                component="li"
-                {...optionProps}
-              >
-                {ownerState.getOptionLabel(option)}
-              </Box>
-            );
-          },
-        },
-      },
-    },
-  });
 
 function Filters() {
   const dispatch = useDispatch();
-  const outerTheme = useTheme();
 
-  const handleChangeBrand = (event, value) => {
-    dispatch(setBrandFilter(value ? value.brand : ''));
+  const handleChangeBrand = (event) => {
+    dispatch(setBrandFilter(event.target.value));
   };
 
-  const handleChangeColor = (event, value) => {
-    dispatch(setColorFilter(value ? value.color : ''));
+  const handleChangeColor = (event) => {
+    dispatch(setColorFilter(event.target.value));
   };
 
-  const handleChangeSize = (event, value) => {
-    const sizeValue = value ? parseInt(value.size) : '';
-    dispatch(setSizeFilter(sizeValue));
+  const handleChangeSize = (event) => {
+    dispatch(setSizeFilter(event.target.value));
   };
 
   return (
-    <ThemeProvider theme={customTheme(outerTheme)}>
-      <Stack sx={{ width: '30%' }}>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: '20px',
-            width: '100%',
-          }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <BrandSelect onChange={handleChangeBrand} />
-          </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <ColorSelect onChange={handleChangeColor} />
-          </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <SizeSelect onChange={handleChangeSize} />
-          </Box>
-        </Box>
-      </Stack>
-    </ThemeProvider>
+    <div style={{ display: 'flex', gap: '20px', width: '30%' }}>
+      <select onChange={handleChangeBrand} style={{borderRadius:'25px', border:'3px solid #5271ff'}}>
+        <option value="">Choose a brand</option>
+        {brands.map((brand) => (
+          <option key={brand.brand} value={brand.brand}>
+            {brand.brand}
+          </option>
+        ))}
+      </select>
+
+      <select onChange={handleChangeColor} style={{borderRadius:'25px', border:'3px solid #5271ff'}}>
+        <option value="">Choose a color</option>
+        {colors.map((color) => (
+          <option key={color.color} value={color.color}>
+            {color.color}
+          </option>
+        ))}
+      </select>
+
+      <select onChange={handleChangeSize} style={{borderRadius:'25px', border:'3px solid #5271ff'}}>
+        <option value="">Choose a size</option>
+        {sizes.map((size) => (
+          <option key={size.size} value={size.size}>
+            {size.size}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
-function BrandSelect({ onChange }) {
-  return (
-    <Autocomplete
-      options={brands}
-      getOptionLabel={(option) => `${option.brand}`}
-      disableCloseOnSelect
-      onChange={(event, value) => onChange(value)}
-      renderInput={(params) => (
-        <TextField {...params} label="Choose a brand" variant="standard" sx={{ width: '100%' }} />
-      )}
-    />
-  );
-}
-
-function ColorSelect({ onChange }) {
-  return (
-    <Autocomplete
-      options={colors}
-      getOptionLabel={(option) => `${option.color}`}
-      disableCloseOnSelect
-      onChange={(event, value) => onChange(value)}
-      renderInput={(params) => (
-        <TextField {...params} label="Choose a color" variant="standard" sx={{ width: '100%' }} />
-      )}
-    />
-  );
-}
-
-function SizeSelect({ onChange }) {
-  return (
-    <Autocomplete
-      options={sizes}
-      getOptionLabel={(option) => `${option.size}`}
-      disableCloseOnSelect
-      onChange={(event, value) => onChange(value)}
-      renderInput={(params) => (
-        <TextField {...params} label="Choose a size" variant="standard" sx={{ width: '100%' }} />
-      )}
-    />
-  );
-}
-
-export default connect()(Filters); 
+export default Filters;
