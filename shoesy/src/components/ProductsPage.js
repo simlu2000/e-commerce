@@ -147,6 +147,13 @@ function ProductsPage() {
             padding: '0',
           }}
         >
+          {router.pathname === '/' && (
+            <h1 style={{
+              textAlign: 'center',
+              fontSize: '6rem',
+              color:'#5271ff'
+            }}>Welcome in Shoesy</h1>
+          )}
           {router.pathname === '/ProductsPage' && (
             <>
               <SearchBar onSearch={handleSearch} />
