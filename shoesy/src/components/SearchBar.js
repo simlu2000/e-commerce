@@ -2,7 +2,7 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { connect, useDispatch } from 'react-redux'; 
+import { connect, useDispatch } from 'react-redux';
 import { setSearchedProduct } from '../redux/actions/productActions';
 
 const Search = styled('div')(({ theme }) => ({
@@ -49,23 +49,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function SearchBar() {
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const handleChangeInput = (event) => {
     dispatch(setSearchedProduct(event.target.value));
   }
 
   return (
-          <Search sx={{marginBottom:'5%'}} >
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleChangeInput}
-            />
-          </Search>
+    <Search sx={{ marginBottom: '5%' }} >
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        inputProps={{ 'aria-label': 'search' }}
+        onChange={handleChangeInput}
+      />
+    </Search>
 
   );
 }

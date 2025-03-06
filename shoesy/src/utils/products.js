@@ -7,7 +7,8 @@ const allproducts = [
     alt: "Nike Air Max shoes",
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["White", "Grey", "Black", "Blue", "Yellow"],
-    price: 150
+    price: 150,
+    priceId: 'price_1QzaJORbLoamVUpJmgFtEGMJ',
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ const allproducts = [
     alt: "Adidas Ultraboost shoes",
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["Black", "Blue"],
-    price: 180
+    price: 180,
+    priceId:'price_1QzaM4RbLoamVUpJdGJlNOel',
   },
   {
     id: 3,
@@ -27,7 +29,8 @@ const allproducts = [
     alt: "Puma Suede Classic shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Red"],
-    price: 120
+    price: 120,
+    priceId:'price_1QzaVSRbLoamVUpJCHZ8FhmJ',
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const allproducts = [
     alt: "Vans Old Skool shoes",
     sizes: [36, 37, 38, 39, 40, 41, 42, 43],
     color: ["White", "Blu"],
-    price: 75
+    price: 75,
+    priceId:'price_1QzaWTRbLoamVUpJuSxH0QhH',
   },
   {
     id: 5,
@@ -47,7 +51,9 @@ const allproducts = [
     alt: "Reebok Classic shoes",
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["White"],
-    price: 90
+    price: 90,
+    priceId:'price_1QzaX6RbLoamVUpJbPj8maw0',
+
   },
   {
     id: 6,
@@ -57,7 +63,8 @@ const allproducts = [
     alt: "New Balance 574 shoes",
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["White", "Beige", "Red", "Grey"],
-    price: 140
+    price: 140,
+    priceId:'price_1QzaXqRbLoamVUpJ6NCn8upD',
   },
   {
     id: 7,
@@ -67,7 +74,8 @@ const allproducts = [
     alt: "Asics Novablast shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["Cyan", "Black"],
-    price: 130
+    price: 130,
+    priceId:'price_1QzaYXRbLoamVUpJkCTYsIGu',
   },
   {
     id: 8,
@@ -77,7 +85,8 @@ const allproducts = [
     alt: "Salomon Speedcross shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Red"],
-    price: 160
+    price: 160,
+    priceId:'price_1QzaZ5RbLoamVUpJyrVQw89y',
   },
   {
     id: 9,
@@ -87,7 +96,9 @@ const allproducts = [
     alt: "Dr. Martens 1460 shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["Black"],
-    price: 200
+    price: 200,
+    priceId:'price_1QzaZpRbLoamVUpJGjMJz062',
+
   },
   {
     id: 10,
@@ -97,7 +108,8 @@ const allproducts = [
     alt: "Jordan Air 1 shoes",
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["Blue", "Gold"],
-    price: 220
+    price: 220,
+    priceId:'price_1QzaaaRbLoamVUpJ3eOz54z1',
   },
   {
     id: 11,
@@ -107,7 +119,8 @@ const allproducts = [
     alt: "Fila Disruptor shoes",
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["White", "Blue"],
-    price: 85
+    price: 85,
+    priceId:'price_1Qzab7RbLoamVUpJ8ZaDfKf4',
   },
   {
     id: 12,
@@ -117,7 +130,8 @@ const allproducts = [
     alt: "Saucony Jazz Original shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Green", "Orange"],
-    price: 100
+    price: 100,
+    priceId:'price_1QzabhRbLoamVUpJ1JVUxnwM',
   },
   {
     id: 13,
@@ -127,7 +141,8 @@ const allproducts = [
     alt: "Hoka One One shoes",
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["White", "Orange", "Yellow"],
-    price: 150
+    price: 150,
+    priceId:'price_1QzacNRbLoamVUpJXddZe58K',
   },
   {
     id: 14,
@@ -137,7 +152,8 @@ const allproducts = [
     alt: "Under Armour HOVR shoes",
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["Black"],
-    price: 160
+    price: 160,
+    priceId:'price_1Qzad2RbLoamVUpJhcyHfT2C',
   },
   {
     id: 15,
@@ -147,7 +163,8 @@ const allproducts = [
     alt: "Mizuno Wave Rider shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Blue"],
-    price: 130
+    price: 130,
+    priceId:'price_1QzadjRbLoamVUpJs8TaMEs4',
   },
   {
     id: 16,
@@ -157,7 +174,8 @@ const allproducts = [
     alt: "Brooks Ghost shoes",
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Black"],
-    price: 140
+    price: 140,
+    priceId:'price_1QzaeORbLoamVUpJutnZvENV'
   },
   {
     id: 17,
@@ -167,7 +185,8 @@ const allproducts = [
     alt: "Lacoste Carnaby Evo shoes",
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["White", "Pink"],
-    price: 110
+    price: 110,
+    priceId:'price_1Qzaf4RbLoamVUpJsAkkE6em'
   },
   {
     id: 18,
@@ -177,7 +196,8 @@ const allproducts = [
     alt: "Timberland 6-inch Premium shoes",
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color:["Brown"],
-    price: 120
+    price: 120,
+    priceId:'price_1QzafaRbLoamVUpJzxgaPOEj'
   }
 
 ];

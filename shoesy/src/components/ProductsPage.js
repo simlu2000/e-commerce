@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux'; 
+import { connect, useSelector, useDispatch } from 'react-redux';
 //dispatch invia azione a store
 //quando invio azione, redux chiama i reducer con l'azione e stato corrente
 //i reducer aggiornano lo stato in base all'azione e restituiscono nuovo stato
@@ -109,21 +109,24 @@ function ProductsPage() {
   };
 
   useEffect(() => {
+    console.log('searchedProduct:', searchedProduct, 'brandFilter:', brandFilter, 'colorFilter:', colorFilter, 'sizeFilter:', sizeFilter);
+
     const filteredList = allProducts.filter((product) => {
-      const nameMatch = product.name
-        ? product.name.toLowerCase().includes(searchedProduct?.toLowerCase() || '')
-        : true;
+      const nameMatch = !searchedProduct || (product.name && product.name.toLowerCase().includes(searchedProduct.toLowerCase()));
 
       const brandMatch = !brandFilter || (product.brand && product.brand.toLowerCase() === brandFilter.toLowerCase());
 
-      const colorMatch = !colorFilter || (product.color && product.color.some((col) => col.toLowerCase() === colorFilter.toLowerCase()));
+      const colorMatch = !colorFilter || (product.color && product.color.some(col => col.toLowerCase() === colorFilter.toLowerCase()));
 
       const sizeMatch = !sizeFilter || (product.sizes && product.sizes.includes(parseInt(sizeFilter)));
+      console.log('product:', product.name, 'nameMatch:', nameMatch, 'brandMatch:', brandMatch, 'colorMatch:', colorMatch, 'sizeMatch:', sizeMatch);
 
       return nameMatch && brandMatch && colorMatch && sizeMatch;
     });
+    console.log('PRODOTTI FILTRATI:')
+    console.log('filteredList:', filteredList)
     dispatch(setFilteredProducts(filteredList));
-  }, [searchedProduct, brandFilter, colorFilter, sizeFilter, allProducts, dispatch]); 
+  }, [searchedProduct, brandFilter, colorFilter, sizeFilter, allProducts, dispatch]);
 
   return (
     <AppProvider
@@ -171,7 +174,7 @@ function ProductsPage() {
                   {openDetailsBox && selectedProduct && (
                     <ProductDetailsBox
                       open={openDetailsBox}
-                      onClose={() => dispatch(closeDetailsBox())} 
+                      onClose={() => dispatch(closeDetailsBox())}
                       product={selectedProduct}
                     />
                   )}

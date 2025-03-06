@@ -12,7 +12,7 @@ function CartPage() {
     try {
       //array di oggetti che contiene per ogni prodotto il priceid e qta
       const cartItemsStripe = cartItems.map(item => ({
-        priceId: 'price_' + item.id,
+        priceId: item.priceId,
         quantity: 1,
       }));
 
