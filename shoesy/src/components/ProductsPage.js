@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 //dispatch invia azione a store
 //quando invio azione, redux chiama i reducer con l'azione e stato corrente
 //i reducer aggiornano lo stato in base all'azione e restituiscono nuovo stato
 /*mui*/
-import { extendTheme, styled, Container } from '@mui/material';
+import { extendTheme, styled, Container, Typography } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { AppProvider } from '@toolpad/core/AppProvider';
@@ -16,14 +16,17 @@ import ProductCard from './ProductCard';
 import SearchBar from './SearchBar';
 import Filters from './Filters';
 import ProductDetailsBox from './ProductDetailsBox';
+import WelcomeText from './WelcomeText';
+import CtaButton from './CtaButton';
 /*other*/
 import allproducts from '../utils/products';
 import App from '../App';
 import logo from "../utils/shoesylogo.png";
 import CartPage from './CartPage';
+import '../App.css';
 
 /*redux*/
-import { setSearchedProduct, setFilteredProducts, setSelectedProduct, closeDetailsBox } from '../redux/actions/productActions';
+import { setSearchedProduct, setFilteredProducts, setSelectedProduct, closeDetailsBox, setDiscover, toggleDiscover } from '../redux/actions/productActions';
 import { setBrandFilter, setColorFilter, setSizeFilter } from '../redux/actions/filterActions';
 
 const NAVIGATION = [
@@ -80,13 +83,20 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 
 function ProductsPage() {
   const dispatch = useDispatch();
-  const router = useDemoRouter('/productspage');
+  const router = useDemoRouter('/');
   const demoWindow = undefined;
+
 
   // accesso a stato redux usando useSelector
   const { allProducts, filteredProducts, selectedProduct, openDetailsBox } = useSelector((state) => state.products);
   const { brandFilter, colorFilter, sizeFilter } = useSelector((state) => state.filters);
   const { searchedProduct } = useSelector((state) => state.products); //recupero searchedProduct dallo store
+
+  //stato animazione
+  const [welcomeAnimation, setWelcomeAnimation] = useState(true);
+
+  //stato click su discover
+  const {discover} = useSelector((state) => state.products);
 
   const handleSearch = (prod) => {
     dispatch(setSearchedProduct(prod));
@@ -108,6 +118,10 @@ function ProductsPage() {
     dispatch(setSelectedProduct(product));
   };
 
+  const handleDiscover = (param) =>{
+    dispatch(toggleDiscover());
+  }
+
   useEffect(() => {
     console.log('searchedProduct:', searchedProduct, 'brandFilter:', brandFilter, 'colorFilter:', colorFilter, 'sizeFilter:', sizeFilter);
 
@@ -128,6 +142,11 @@ function ProductsPage() {
     dispatch(setFilteredProducts(filteredList));
   }, [searchedProduct, brandFilter, colorFilter, sizeFilter, allProducts, dispatch]);
 
+  useEffect(() => {
+    if (router.pathname === '/') { setWelcomeAnimation(true); }
+    else { setWelcomeAnimation(false); }
+  }, [router.pathname]);
+
   return (
     <AppProvider
       navigation={NAVIGATION}
@@ -147,14 +166,18 @@ function ProductsPage() {
             padding: '0',
           }}
         >
-          {router.pathname === '/' && (
-            <h1 style={{
-              textAlign: 'center',
-              fontSize: '6rem',
-              color:'#5271ff'
-            }}>Welcome in Shoesy</h1>
+          {router.pathname === '/' && welcomeAnimation && (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <WelcomeText infoText={"Welcome in Shoesy"} isWelcome={welcomeAnimation} />
+              <CtaButton ctaText={"Discover Shoesy"} onClick={handleDiscover(true)}/>
+            </div>
           )}
-          {router.pathname === '/ProductsPage' && (
+          {router.pathname === '/ProductsPage' && discover &&(
             <>
               <SearchBar onSearch={handleSearch} />
               <Filters
