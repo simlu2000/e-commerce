@@ -21,8 +21,8 @@ export default function productReducer(state = initialState, action) {
         case 'CLOSE_DETAILS_BOX':
             return { ...state, openDetailsBox: false };
         case 'SET_DISCOVER':
-            return { ...state, setDiscover: true };
-        case TOGGLE_DISCOVER:
+            return { ...state, discover: true };
+        case 'TOGGLE_DISCOVER':
             return { ...state, discover: !state.discover };
         default:
             return state;

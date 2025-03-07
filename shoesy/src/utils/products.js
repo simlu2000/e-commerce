@@ -8,7 +8,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["White", "Grey", "Black", "Blue", "Yellow"],
     price: 150,
-    priceId: 'price_1QzaJORbLoamVUpJmgFtEGMJ',
+    priceId: "price_1QzaJORbLoamVUpJmgFtEGMJ",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const allproducts = [
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["Black", "Blue"],
     price: 180,
-    priceId:'price_1QzaM4RbLoamVUpJdGJlNOel',
+    priceId:"price_1QzaM4RbLoamVUpJdGJlNOel",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Red"],
     price: 120,
-    priceId:'price_1QzaVSRbLoamVUpJCHZ8FhmJ',
+    priceId:"price_1QzaVSRbLoamVUpJCHZ8FhmJ",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ const allproducts = [
     sizes: [36, 37, 38, 39, 40, 41, 42, 43],
     color: ["White", "Blu"],
     price: 75,
-    priceId:'price_1QzaWTRbLoamVUpJuSxH0QhH',
+    priceId:"price_1QzaWTRbLoamVUpJuSxH0QhH",
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["White"],
     price: 90,
-    priceId:'price_1QzaX6RbLoamVUpJbPj8maw0',
+    priceId:"price_1QzaX6RbLoamVUpJbPj8maw0",
 
   },
   {
@@ -64,7 +64,7 @@ const allproducts = [
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["White", "Beige", "Red", "Grey"],
     price: 140,
-    priceId:'price_1QzaXqRbLoamVUpJ6NCn8upD',
+    priceId:"price_1QzaXqRbLoamVUpJ6NCn8upD",
   },
   {
     id: 7,
@@ -75,7 +75,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["Cyan", "Black"],
     price: 130,
-    priceId:'price_1QzaYXRbLoamVUpJkCTYsIGu',
+    priceId:"price_1QzaYXRbLoamVUpJkCTYsIGu",
   },
   {
     id: 8,
@@ -86,7 +86,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Red"],
     price: 160,
-    priceId:'price_1QzaZ5RbLoamVUpJyrVQw89y',
+    priceId:"price_1QzaZ5RbLoamVUpJyrVQw89y",
   },
   {
     id: 9,
@@ -97,7 +97,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["Black"],
     price: 200,
-    priceId:'price_1QzaZpRbLoamVUpJGjMJz062',
+    priceId:"price_1QzaZpRbLoamVUpJGjMJz062",
 
   },
   {
@@ -109,7 +109,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["Blue", "Gold"],
     price: 220,
-    priceId:'price_1QzaaaRbLoamVUpJ3eOz54z1',
+    priceId:"price_1QzaaaRbLoamVUpJ3eOz54z1",
   },
   {
     id: 11,
@@ -120,7 +120,7 @@ const allproducts = [
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["White", "Blue"],
     price: 85,
-    priceId:'price_1Qzab7RbLoamVUpJ8ZaDfKf4',
+    priceId:"price_1Qzab7RbLoamVUpJ8ZaDfKf4",
   },
   {
     id: 12,
@@ -131,7 +131,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Green", "Orange"],
     price: 100,
-    priceId:'price_1QzabhRbLoamVUpJ1JVUxnwM',
+    priceId:"price_1QzabhRbLoamVUpJ1JVUxnwM",
   },
   {
     id: 13,
@@ -142,7 +142,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color: ["White", "Orange", "Yellow"],
     price: 150,
-    priceId:'price_1QzacNRbLoamVUpJXddZe58K',
+    priceId:"price_1QzacNRbLoamVUpJXddZe58K",
   },
   {
     id: 14,
@@ -153,7 +153,7 @@ const allproducts = [
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["Black"],
     price: 160,
-    priceId:'price_1Qzad2RbLoamVUpJhcyHfT2C',
+    priceId:"price_1Qzad2RbLoamVUpJhcyHfT2C",
   },
   {
     id: 15,
@@ -164,7 +164,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Blue"],
     price: 130,
-    priceId:'price_1QzadjRbLoamVUpJs8TaMEs4',
+    priceId:"price_1QzadjRbLoamVUpJs8TaMEs4",
   },
   {
     id: 16,
@@ -175,7 +175,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43],
     color: ["White", "Black"],
     price: 140,
-    priceId:'price_1QzaeORbLoamVUpJutnZvENV'
+    priceId:"price_1QzaeORbLoamVUpJutnZvENV"
   },
   {
     id: 17,
@@ -186,7 +186,7 @@ const allproducts = [
     sizes: [37, 38, 39, 40, 41, 42],
     color: ["White", "Pink"],
     price: 110,
-    priceId:'price_1Qzaf4RbLoamVUpJsAkkE6em'
+    priceId:"price_1Qzaf4RbLoamVUpJsAkkE6em"
   },
   {
     id: 18,
@@ -197,7 +197,7 @@ const allproducts = [
     sizes: [38, 39, 40, 41, 42, 43, 44],
     color:["Brown"],
     price: 120,
-    priceId:'price_1QzafaRbLoamVUpJzxgaPOEj'
+    priceId:"price_1QzafaRbLoamVUpJzxgaPOEj"
   }
 
 ];

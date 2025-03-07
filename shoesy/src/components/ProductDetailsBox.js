@@ -25,6 +25,7 @@ export default function ProductDetailsBox({ open, onClose, product }) {
     const [selectedName, setSelectedName] = useState(product.name);
     const [selectedCololors, setSelectedColors] = useState(product.color);
     const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedPriceId,setSelectedPriceId]=useState('');
     const { addToCart } = useCart(); //accedo a contesto carrello
 
     const handleSelectShoesSize = (event) => {
@@ -45,6 +46,7 @@ export default function ProductDetailsBox({ open, onClose, product }) {
             size: selectedSize,
             image: product.image,
             price: product.price,
+            priceId:product.priceId,
         };
 
         addToCart(selectedProduct); //aggiorniamo\
@@ -90,6 +92,7 @@ export default function ProductDetailsBox({ open, onClose, product }) {
                     <ListItemButton sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <ListItemText primary="Brand" secondary={product.brand} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Name" secondary={product.name} primaryTypographyProps={{ fontSize: '1.5rem' }} />
+                        <ListItemText primary="priceId" secondary={product.priceId} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Color" secondary={product.color.join(', ')} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Price" secondary={product.price + ' $'} primaryTypographyProps={{ fontSize: '1.5rem' }} />
                         <ListItemText primary="Size" primaryTypographyProps={{ fontSize: '1.5rem' }} />

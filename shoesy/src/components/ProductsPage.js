@@ -19,8 +19,6 @@ import ProductDetailsBox from './ProductDetailsBox';
 import WelcomeText from './WelcomeText';
 import CtaButton from './CtaButton';
 /*other*/
-import allproducts from '../utils/products';
-import App from '../App';
 import logo from "../utils/shoesylogo.png";
 import CartPage from './CartPage';
 import '../App.css';
@@ -118,9 +116,10 @@ function ProductsPage() {
     dispatch(setSelectedProduct(product));
   };
 
-  const handleDiscover = (param) =>{
+  const handleDiscover = () =>{
     dispatch(toggleDiscover());
-  }
+    router.navigate('/ProductsPage');
+  };
 
   useEffect(() => {
     console.log('searchedProduct:', searchedProduct, 'brandFilter:', brandFilter, 'colorFilter:', colorFilter, 'sizeFilter:', sizeFilter);
@@ -174,7 +173,7 @@ function ProductsPage() {
               justifyContent: 'center',
             }}>
               <WelcomeText infoText={"Welcome in Shoesy"} isWelcome={welcomeAnimation} />
-              <CtaButton ctaText={"Discover Shoesy"} onClick={handleDiscover(true)}/>
+              <CtaButton ctaText={"Discover Shoesy"} onClick={() => handleDiscover(true)}/>
             </div>
           )}
           {router.pathname === '/ProductsPage' && discover &&(
