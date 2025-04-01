@@ -73,9 +73,10 @@ function CartPage() {
         {totPrice > 0 && (
           <>
             <p>Total: ${totPrice.toFixed(2)}</p>
-            <button onClick={handleCheckout} style={{
+            <button onClick={handleCheckout} 
+            style={{
               marginTop: '5%',
-              background: '#a8c0ff',  /* fallback for old browsers */
+              /*background: '#a8c0ff',  /* fallback for old browsers */
               background: '-webkit-linear-gradient(to right, #a8c0ff, #3f2b96)',  /* Chrome 10-25, Safari 5.1-6 */
               background: 'linear-gradient(to right, #a8c0ff, #3f2b96)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
               fontSize: '1.5rem',

@@ -4,7 +4,7 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 //quando invio azione, redux chiama i reducer con l'azione e stato corrente
 //i reducer aggiornano lo stato in base all'azione e restituiscono nuovo stato
 /*mui*/
-import { extendTheme, styled, Container, Typography } from '@mui/material';
+import { extendTheme, styled, Container } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { AppProvider } from '@toolpad/core/AppProvider';
@@ -24,7 +24,7 @@ import CartPage from './CartPage';
 import '../App.css';
 
 /*redux*/
-import { setSearchedProduct, setFilteredProducts, setSelectedProduct, closeDetailsBox, setDiscover, toggleDiscover } from '../redux/actions/productActions';
+import { setSearchedProduct, setFilteredProducts, setSelectedProduct, closeDetailsBox, toggleDiscover } from '../redux/actions/productActions';
 import { setBrandFilter, setColorFilter, setSizeFilter } from '../redux/actions/filterActions';
 
 const NAVIGATION = [
